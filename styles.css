@@ -40,7 +40,7 @@ header > span {
 }
 
 .card {
-    padding: 20px;
+    padding: 40px 20px;
     background-color: rgb(200, 200, 200);
     font-size: 2.2rem;
     border-radius: 8px;
@@ -78,4 +78,14 @@ footer {
     font-size: 2.6rem;
     color: firebrick;
     font-weight: bold;
+}
+
+.input-form {
+    font-size: 2rem;
+    padding: 10px 20px;
+}
+
+.input-cell {
+    display: flex;
+    flex-direction: column;
 }

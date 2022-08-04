@@ -1,4 +1,5 @@
 const main = document.querySelector('.main');
+const addBookButton = document.querySelector('.add-book');
 
 const myLibrary = [];
 
@@ -20,19 +21,12 @@ function showBooks() {
     }
 }
 
-function createButton() {
-    addBookButton = document.createElement('button')
-    addBookButton.classList.add('add-book');
-    main.appendChild(addBookButton);
-    addBookButton.textContent = 'Add Book';
-}
-
 function displayBooks() {
     for (let i = 0; i < myLibrary.length; i++) {
         let card = document.createElement('div');
         card.classList.add('card');
         let bookName = document.createElement('p');
-        main.appendChild(card);
+        main.insertBefore(card, addBookButton);
         card.appendChild(bookName);
         bookName.classList.add('book-name');
         bookName.textContent = `${myLibrary[i].name}`;
@@ -46,8 +40,61 @@ function displayBooks() {
         card.appendChild(bookStatus);
         bookStatus.textContent = `Status: ${myLibrary[i].isRead ? 'Read' : 'Not read'}`;
     }
-    createButton();
 }
+
+function setAttributes(el, attrs) {
+    Object.keys(attrs).forEach(key => el.setAttribute(key, attrs[key]));
+}
+
+function makeFormField(elem) {
+    for (let i = 0; i < 4; i++) {
+        let div = document.createElement('div');
+        div.classList.add('input-cell');
+        elem.appendChild(div);
+        switch (i) {
+            case 0:
+                let input_name = document.createElement('input');
+                setAttributes(input_name, {name: 'name', type: 'text', id: 'name'});
+                let label_name = document.createElement('label');
+                setAttributes(label_name, {for: 'name'});
+                label_name.textContent = 'Name:';
+
+                div.appendChild(label_name);
+                div.appendChild(input_name);
+                break;
+            case 1:
+                let input_author = document.createElement('input');
+                setAttributes(input_author, {name: 'author', type: 'text', id: 'author'});
+                let label_author = document.createElement('label');
+                setAttributes(label_author, {for: 'author'});
+                label.textContent = 'Author:';
+
+                div.appendChild(label_author);
+                div.appendChild(input_author);
+                break;
+            case 2:
+                let input_pages = document.createElement('input');
+                setAttributes(input_pages, {name: 'pages', type: 'text', id: 'pages'});
+                let label_pages = document.createElement('label');
+                setAttributes(label_pages, {for: 'pages'});
+                label_pages.textContent = 'Pages:';
+
+                div.appendChild(label_pages);
+                div.appendChild(input_pages);
+                break;
+        }
+    }
+}
+
+addBookButton.addEventListener('click', e => {
+    e.target.textContent = '';
+    addBookButton.style.display = 'none';
+    let card = document.createElement('div');
+    card.classList.add('card');
+    main.insertBefore(card, addBookButton);
+    card.classList.add('input-form');
+    makeFormField(card);
+});
 
 
 addBookToLibrary('1', 'Me', '456', true);
