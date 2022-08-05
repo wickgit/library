@@ -25,20 +25,37 @@ function displayBooks() {
     for (let i = 0; i < myLibrary.length; i++) {
         let card = document.createElement('div');
         card.classList.add('card');
-        let bookName = document.createElement('p');
-        main.insertBefore(card, addBookButton);
-        card.appendChild(bookName);
-        bookName.classList.add('book-name');
-        bookName.textContent = `${myLibrary[i].name}`;
-        let bookAuthor = document.createElement('p');
-        card.appendChild(bookAuthor);
-        bookAuthor.textContent = `Author: ${myLibrary[i].author}`;
-        let bookPages = document.createElement('p');
-        card.appendChild(bookPages);
-        bookPages.textContent = `Pages: ${myLibrary[i].numberOfPages}`;
-        let bookStatus = document.createElement('p');
-        card.appendChild(bookStatus);
-        bookStatus.textContent = `Status: ${myLibrary[i].isRead ? 'Read' : 'Not read'}`;
+        for (let key in myLibrary[i]) {
+            let p = document.createElement('p');
+            main.insertBefore(card, addBookButton);
+            card.appendChild(p);
+            if (key == 'name') {
+                p.classList.add('book-name');
+                p.textContent = `${myLibrary[i].name}`;
+            } else if (key == 'isRead') {
+                p.textContent = `Status: ${myLibrary[i].isRead ? 'Read' : 'Not read'}`;
+            } else {
+                p.textContent = `${key}: ${myLibrary[i][key]}`;
+            }
+
+        }
+        
+        
+        
+        // let bookName = document.createElement('p');
+        // main.insertBefore(card, addBookButton);
+        // card.appendChild(bookName);
+        // bookName.classList.add('book-name');
+        // bookName.textContent = `${myLibrary[i].name}`;
+        // let bookAuthor = document.createElement('p');
+        // card.appendChild(bookAuthor);
+        // bookAuthor.textContent = `Author: ${myLibrary[i].author}`;
+        // let bookPages = document.createElement('p');
+        // card.appendChild(bookPages);
+        // bookPages.textContent = `Pages: ${myLibrary[i].numberOfPages}`;
+        // let bookStatus = document.createElement('p');
+        // card.appendChild(bookStatus);
+        // bookStatus.textContent = `Status: ${myLibrary[i].isRead ? 'Read' : 'Not read'}`;
     }
 }
 
