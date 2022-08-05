@@ -60,6 +60,10 @@ function makeFormField(elem) {
             div.appendChild(label);
             div.appendChild(input);
         });
+    let button = document.createElement('button');
+    button.classList.add('submit-button');
+    elem.appendChild(button);
+    button.textContent = 'Add';
 }
 
 addBookButton.addEventListener('click', e => {
@@ -74,11 +78,11 @@ addBookButton.addEventListener('click', e => {
 
 
 addBookToLibrary('1', 'Me', '456', true);
-addBookToLibrary('2', 'You', '123', false);
-addBookToLibrary('3', 'They', '987', false);
-addBookToLibrary('4', 'He', '789', true);
-addBookToLibrary('5', 'She', '654', true);
-addBookToLibrary('6', 'Us', '321', false);
+// addBookToLibrary('2', 'You', '123', false);
+// addBookToLibrary('3', 'They', '987', false);
+// addBookToLibrary('4', 'He', '789', true);
+// addBookToLibrary('5', 'She', '654', true);
+// addBookToLibrary('6', 'Us', '321', false);
 
 showBooks();
 displayBooks();
