@@ -44,8 +44,9 @@ header > span {
     background-color: rgb(200, 200, 200);
     font-size: 2.2rem;
     border-radius: 8px;
-    display:flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 0.6rem;
 }
 
 footer {

@@ -35,9 +35,8 @@ function displayBooks() {
             } else if (key == 'isRead') {
                 p.textContent = `Status: ${myLibrary[i].isRead ? 'Read' : 'Not read'}`;
             } else {
-                p.textContent = `${key}: ${myLibrary[i][key]}`;
+                p.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${myLibrary[i][key]}`;
             }
-
         }
         
         
@@ -64,43 +63,53 @@ function setAttributes(el, attrs) {
 }
 
 function makeFormField(elem) {
-    for (let i = 0; i < 4; i++) {
-        let div = document.createElement('div');
-        div.classList.add('input-cell');
-        elem.appendChild(div);
-        switch (i) {
-            case 0:
-                let input_name = document.createElement('input');
-                setAttributes(input_name, {name: 'name', type: 'text', id: 'name'});
-                let label_name = document.createElement('label');
-                setAttributes(label_name, {for: 'name'});
-                label_name.textContent = 'Name:';
+    const keys = ['name', 'author', 'pages', 'isread'];
+    keys.forEach(key => {
+            let div = document.createElement('div');
+            div.classList.add('input-cell');
+            elem.appendChild(div);
+            let input = document.createElement('input');
+            setAttributes(input, {name: key, type: 'text', id: key});
+            let label = document.createElement('label');
+            setAttributes(label, {for: key});
+            label.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}:`;
 
-                div.appendChild(label_name);
-                div.appendChild(input_name);
-                break;
-            case 1:
-                let input_author = document.createElement('input');
-                setAttributes(input_author, {name: 'author', type: 'text', id: 'author'});
-                let label_author = document.createElement('label');
-                setAttributes(label_author, {for: 'author'});
-                label.textContent = 'Author:';
+            div.appendChild(label);
+            div.appendChild(input);
+        });
 
-                div.appendChild(label_author);
-                div.appendChild(input_author);
-                break;
-            case 2:
-                let input_pages = document.createElement('input');
-                setAttributes(input_pages, {name: 'pages', type: 'text', id: 'pages'});
-                let label_pages = document.createElement('label');
-                setAttributes(label_pages, {for: 'pages'});
-                label_pages.textContent = 'Pages:';
+        // switch (i) {
+        //     case 0:
+        //         let input_name = document.createElement('input');
+        //         setAttributes(input_name, {name: 'name', type: 'text', id: 'name'});
+        //         let label_name = document.createElement('label');
+        //         setAttributes(label_name, {for: 'name'});
+        //         label_name.textContent = 'Name:';
 
-                div.appendChild(label_pages);
-                div.appendChild(input_pages);
-                break;
-        }
-    }
+        //         div.appendChild(label_name);
+        //         div.appendChild(input_name);
+        //         break;
+        //     case 1:
+        //         let input_author = document.createElement('input');
+        //         setAttributes(input_author, {name: 'author', type: 'text', id: 'author'});
+        //         let label_author = document.createElement('label');
+        //         setAttributes(label_author, {for: 'author'});
+        //         label.textContent = 'Author:';
+
+        //         div.appendChild(label_author);
+        //         div.appendChild(input_author);
+        //         break;
+        //     case 2:
+        //         let input_pages = document.createElement('input');
+        //         setAttributes(input_pages, {name: 'pages', type: 'text', id: 'pages'});
+        //         let label_pages = document.createElement('label');
+        //         setAttributes(label_pages, {for: 'pages'});
+        //         label_pages.textContent = 'Pages:';
+
+        //         div.appendChild(label_pages);
+        //         div.appendChild(input_pages);
+        //         break;
+        // }
 }
 
 addBookButton.addEventListener('click', e => {
