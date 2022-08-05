@@ -46,13 +46,17 @@ function setAttributes(el, attrs) {
 }
 
 function makeFormField(elem) {
-    const keys = ['name', 'author', 'pages', 'isread'];
+    const keys = ['name', 'author', 'pages', 'isRead'];
     keys.forEach(key => {
             let div = document.createElement('div');
             div.classList.add('input-cell');
             elem.appendChild(div);
             let input = document.createElement('input');
-            setAttributes(input, {name: key, type: 'text', id: key});
+            if (key == 'isRead'){
+                setAttributes(input, {name: key, type: 'checkbox', id: key});
+            } else {
+                setAttributes(input, {name: key, type: 'text', id: key});
+            }
             let label = document.createElement('label');
             setAttributes(label, {for: key});
             label.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}:`;
@@ -63,17 +67,21 @@ function makeFormField(elem) {
     let button = document.createElement('button');
     button.classList.add('submit-button');
     elem.appendChild(button);
+    button.setAttribute('type', 'submit');
     button.textContent = 'Add';
 }
 
 addBookButton.addEventListener('click', e => {
     e.target.textContent = '';
     addBookButton.style.display = 'none';
-    let card = document.createElement('div');
+    let card = document.createElement('div');   
     card.classList.add('card');
     main.insertBefore(card, addBookButton);
-    card.classList.add('input-form');
-    makeFormField(card);
+    card.classList.add('form-wrapper');
+    let form = document.createElement('form');
+    card.appendChild(form);
+    form.classList.add('input-form');
+    makeFormField(form);
 });
 
 

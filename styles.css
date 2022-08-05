@@ -88,7 +88,43 @@ footer {
     padding: 10px 20px;
 }
 
+.form-wrapper {
+    padding: 0;
+}
+
 .input-cell {
     display: flex;
     flex-direction: column;
+}
+
+.input-cell:nth-child(4) {
+    display: block;
+}
+
+.input-cell:nth-child(4) label {
+    display: block;
+}
+
+input[type=checkbox] {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+    width: 15px;
+    height: 15px;
+}
+
+.submit-button {
+    padding: 7px 20px;
+    background-color: firebrick;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.submit-button:hover {
+    background-color: white;
+    color: firebrick;
 }
