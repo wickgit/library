@@ -17,26 +17,27 @@ function addBookToLibrary(name, author, numberOfPages, isRead) {
 
 function showBooks() {
     for (let i = 0; i < myLibrary.length; i++) {
-        console.log(myLibrary[i]);
+        console.log(i, 'book', myLibrary[i]);
     }
 }
 
-function displayBooks() {
-    for (let i = 0; i < myLibrary.length; i++) {
-        let card = document.createElement('div');
-        card.classList.add('card');
-        for (let key in myLibrary[i]) {
-            let p = document.createElement('p');
-            main.insertBefore(card, addBookButton);
-            card.appendChild(p);
-            if (key == 'name') {
-                p.classList.add('book-name');
-                p.textContent = `${myLibrary[i].name}`;
-            } else if (key == 'isRead') {
-                p.textContent = `Status: ${myLibrary[i].isRead ? 'Read' : 'Not read'}`;
-            } else {
-                p.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${myLibrary[i][key]}`;
-            }
+function AddBookToDisplay() {
+    console.log(myLibrary);
+    let card = document.createElement('div');
+    card.classList.add('card');
+    main.insertBefore(card, addBookButton);
+    let lastBookIndex = myLibrary.length - 1;
+    for (let key in myLibrary[lastBookIndex]) {
+        console.log(key);
+        let p = document.createElement('p');
+        card.appendChild(p);
+        if (key === 'name') {
+            p.classList.add('book-name');
+            p.textContent = `${myLibrary[lastBookIndex].name}`;
+        } else if (key === 'isRead') {
+            p.textContent = `Status: ${myLibrary[lastBookIndex].isRead ? 'Read' : 'Not read'}`;
+        } else {
+            p.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${myLibrary[lastBookIndex][key]}`;
         }
     }
 }
@@ -71,6 +72,21 @@ function makeFormField(elem) {
     button.textContent = 'Add';
 }
 
+
+// Event listeners
+
+main.addEventListener('submit', e => {
+    e.preventDefault();
+    let form = document.querySelector('form');
+    // getting data from a form
+    const data = Object.fromEntries(new FormData(form).entries());
+    main.removeChild(form.parentNode);
+    addBookButton.style.display = 'block';
+    addBookButton.textContent = 'Add book';
+    addBookToLibrary(data.name, data.author, data.pages, data.isRead);
+    AddBookToDisplay();
+});
+
 addBookButton.addEventListener('click', e => {
     e.target.textContent = '';
     addBookButton.style.display = 'none';
@@ -83,14 +99,3 @@ addBookButton.addEventListener('click', e => {
     form.classList.add('input-form');
     makeFormField(form);
 });
-
-
-addBookToLibrary('1', 'Me', '456', true);
-// addBookToLibrary('2', 'You', '123', false);
-// addBookToLibrary('3', 'They', '987', false);
-// addBookToLibrary('4', 'He', '789', true);
-// addBookToLibrary('5', 'She', '654', true);
-// addBookToLibrary('6', 'Us', '321', false);
-
-showBooks();
-displayBooks();
