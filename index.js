@@ -26,6 +26,7 @@ function AddBookToDisplay() {
     card.classList.add('card');
     main.insertBefore(card, addBookButton);
     let lastBookIndex = myLibrary.length - 1;
+
     for (let key in myLibrary[lastBookIndex]) {
         let p = document.createElement('p');
         card.appendChild(p);
@@ -34,11 +35,18 @@ function AddBookToDisplay() {
             p.textContent = `${myLibrary[lastBookIndex].name}`;
         } else if (key === 'isRead') {
             p.textContent = `Status: ${myLibrary[lastBookIndex].isRead ? 'Read' : 'Not read'}`;
+        } else if (key === 'numberOfPages') {
+            p.textContent = `Pages: ${myLibrary[lastBookIndex].numberOfPages}`;
         } else {
             p.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${myLibrary[lastBookIndex][key]}`;
         }
     }
-    let button = document.createElement('button');
+
+    const changeStatusButton = document.createElement('button');
+    card.appendChild(changeStatusButton);
+    changeStatusButton.classList.add('change-status-button');
+    changeStatusButton.textContent = 'Change status';
+    const button = document.createElement('button');
     card.appendChild(button);
     button.classList.add('remove-button');
     button.textContent = 'Remove';
@@ -67,11 +75,11 @@ function makeFormField(elem) {
             div.appendChild(label);
             div.appendChild(input);
         });
-    let button = document.createElement('button');
-    button.classList.add('submit-button');
-    elem.appendChild(button);
-    button.setAttribute('type', 'submit');
-    button.textContent = 'Add';
+    const submit_button = document.createElement('button');
+    submit_button.classList.add('submit-button');
+    elem.appendChild(submit_button);
+    submit_button.setAttribute('type', 'submit');
+    submit_button.textContent = 'Add';
 }
 
 
@@ -103,11 +111,15 @@ addBookButton.addEventListener('click', e => {
 });
 
 main.addEventListener('click', e => {
-    const hasClass = e.target.classList.contains('remove-button')
-    if (hasClass) {
+    if (e.target.classList.contains('remove-button')) {
         const card = e.target.parentNode;
         const index = Array.from(main.children).indexOf(card);
         myLibrary.splice(index, 1);
         main.removeChild(card);
+    } else if (e.target.classList.contains('change-status-button')) {
+        const card = e.target.parentNode;
+        const index = Array.from(main.children).indexOf(card);
+        myLibrary[index].isRead ? myLibrary[index].isRead = false : myLibrary[index].isRead = true;
+        card.children[3].textContent = `Status: ${myLibrary[index].isRead ? 'Read' : 'Not read'}`;
     }
-})
+});
