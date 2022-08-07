@@ -22,13 +22,11 @@ function showBooks() {
 }
 
 function AddBookToDisplay() {
-    console.log(myLibrary);
     let card = document.createElement('div');
     card.classList.add('card');
     main.insertBefore(card, addBookButton);
     let lastBookIndex = myLibrary.length - 1;
     for (let key in myLibrary[lastBookIndex]) {
-        console.log(key);
         let p = document.createElement('p');
         card.appendChild(p);
         if (key === 'name') {
@@ -40,6 +38,10 @@ function AddBookToDisplay() {
             p.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${myLibrary[lastBookIndex][key]}`;
         }
     }
+    let button = document.createElement('button');
+    card.appendChild(button);
+    button.classList.add('remove-button');
+    button.textContent = 'Remove';
 }
 
 function setAttributes(el, attrs) {
@@ -99,3 +101,13 @@ addBookButton.addEventListener('click', e => {
     form.classList.add('input-form');
     makeFormField(form);
 });
+
+main.addEventListener('click', e => {
+    const hasClass = e.target.classList.contains('remove-button')
+    if (hasClass) {
+        const card = e.target.parentNode;
+        const index = Array.from(main.children).indexOf(card);
+        myLibrary.splice(index, 1);
+        main.removeChild(card);
+    }
+})
